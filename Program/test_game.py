@@ -43,17 +43,18 @@ class TestNumberGuessingGame(unittest.TestCase):
         """Test provide_hints function when all digits are correct."""
         self.assertEqual(provide_hints("1234", "1234"), ["o", "o", "o", "o"])
 
-    def test_provide_hints_partial_correct(self):
-        """Test provide_hints function with two correct and two incorrect."""
-        self.assertEqual(provide_hints("1234", "1243"), ["o", "o", "_", "_"])
-
     def test_provide_hints_none_correct(self):
         """Test provide_hints function when no digits are correct."""
-        self.assertEqual(provide_hints("1234", "5678"), ["_", "_", "_", "_"])
+        self.assertEqual(provide_hints("1234", "5678"), [" ", " ", " ", " "])
 
     def test_provide_hints_mixed_correct(self):
         """Test provide_hints function with mixed correct digits."""
-        self.assertEqual(provide_hints("9872", "8822"), ["_", "o", "_", "o"])
+        self.assertEqual(provide_hints("9872", "8822"), ["x", "o", "x", "o"])
+
+    def test_provide_hints_correct_numbers_diff_position(self):
+        """Test provide_hints function with correct
+            digits in different positions."""
+        self.assertEqual(provide_hints("1234", "4321"), ["x", "x", "x", "x"])
 
 
 if __name__ == '__main__':

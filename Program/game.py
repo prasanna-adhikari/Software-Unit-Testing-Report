@@ -29,22 +29,20 @@ def provide_hints(secret_number, guess):
     """Provide hints to the player about the accuracy of their guess."""
     hints = []
     used_positions = set()
-    used_digits = set()
+    secret_digit_count = [secret_number.count(digit)
+                          for digit in secret_number]
     for i in range(4):
         if guess[i] == secret_number[i]:
             hints.append("o")
             used_positions.add(i)
-            used_digits.add(guess[i])
+        elif guess[i] in secret_number:
+            secret_index = secret_number.index(guess[i])
+            if secret_digit_count[secret_index] == 1:
+                hints.append("x")
+            else:
+                hints.append(" ")
         else:
-            hints.append("_")
-    for i, digit in enumerate(guess):
-        if (digit != secret_number[i] and
-                digit in secret_number and
-                digit not in used_digits):
-            secret_index = secret_number.index(digit)
-            if secret_index not in used_positions:
-                hints[i] = "_"
-                used_positions.add(secret_index)
+            hints.append(" ")
     return hints
 
 
